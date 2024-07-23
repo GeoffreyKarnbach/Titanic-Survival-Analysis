@@ -59,12 +59,12 @@ def evaluate_test_csv_for_decision_tree_v1():
     if not os.path.exists("Predictions"):
         os.mkdir("Predictions")
 
-    with open("Predictions/titanic_decision_tree_results_v1.csv", "w") as f:
+    with open("Predictions/decision_tree_v1.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(["PassengerId", "Survived"])
         writer.writerows(zip(passenger_ids, results))
 
-    print("Predictions have been saved to Predictions/titanic_decision_tree_results_v1.csv")
+    print("Predictions have been saved to Predictions/decision_tree_v1.csv")
 
 def evaluate_passenger_request_v1(request):
     feature = get_adapted_features_for_decision_tree_from_request_v1(request)

@@ -21,7 +21,7 @@ class PredictionRequest:
 app = Flask(__name__)
 CORS(app)
 
-ALLOWED_MODELS = ['decision_tree']
+ALLOWED_MODELS = ['decision_tree_v1']
 
 @app.route('/', methods=['GET'])
 def index():
@@ -58,10 +58,10 @@ def prediction():
 
     response = None
 
-    if prediction_request.model == 'decision_tree':
+    if prediction_request.model == 'decision_tree_v1':
         response = {"Survived":predict_decision_tree(prediction_request)}
 
-    
+    print(response)
     return jsonify(response), 200
 
 def predict_decision_tree(request_data):

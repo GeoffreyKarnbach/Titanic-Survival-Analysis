@@ -24,18 +24,19 @@ export class DecisionTreeComponent {
     fare: 100,
     cabin: "A123",
     embarked: "S",
-    model: "decision_tree"
+    model: "decision_tree_v1"
   }
   constructor(private survivalPredictionService: SurvivalPredictionService){}
 
   onSubmit(_: Event): void {
-    this.requestDto.model = "decision_tree";
+    this.requestDto.model = "decision_tree_v1";
 
     console.log(this.requestDto);
 
     this.loading = true;
     this.survivalPredictionService.getSurvivalPrediction(this.requestDto).subscribe(
       (response) => {
+        console.log(response);
         this.loading = false;
         if (response['Survived'] == 1) {
           this.survivalPrediction = true;
