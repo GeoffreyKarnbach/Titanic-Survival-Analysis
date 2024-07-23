@@ -56,7 +56,7 @@ def get_adapted_features_for_decision_tree_v1(row):
 
     return feature
 
-def get_adapted_features_for_decision_tree_v2_v3(row):
+def get_adapted_features_for_decision_tree_v_n(row):
     feature = []
 
     feature.append(safe_to_int(row[1]))
@@ -66,6 +66,17 @@ def get_adapted_features_for_decision_tree_v2_v3(row):
     feature.append(get_int_for_fare(row[8]))
     feature.append(get_int_for_port(row[10]))
 
+    return feature
+
+def get_adapted_features_for_decision_tree_v7(row):
+    feature = get_adapted_features_for_decision_tree_v_n(row)
+
+    feature.append(1 if feature[4] == 0 else 0)
+
+    title = row[2].split(',')[1].split('.')[0].strip()
+    title = title if title in ['Mr', 'Mrs', 'Miss', 'Master', 'None'] else 'Other'
+    feature.append({"Mr": 1, "Mrs": 2, "Miss": 3, "Master": 4, "Other": 5, "None": 6}[title])
+    
     return feature
 
 def get_adapted_features_for_decision_tree_from_request_v1(request):
@@ -109,8 +120,8 @@ def evaluate_test_csv_for_decision_tree_v1():
     print("Predictions have been saved to Predictions/decision_tree_v1.csv")
 
 
-def evaluate_test_csv_for_decision_tree_v2():
-    loaded_decision_tree = joblib.load("Models/titanic_decision_tree_model_v2.joblib")
+def evaluate_test_csv_for_decision_tree_v_n(n = 2):
+    loaded_decision_tree = joblib.load(f"Models/titanic_decision_tree_model_v{n}.joblib")
 
     with open("Data/test.csv", "r") as f:
         reader = csv.reader(f)
@@ -123,22 +134,22 @@ def evaluate_test_csv_for_decision_tree_v2():
 
     for row in content:
         passenger_ids.append(row[0])
-        features.append(get_adapted_features_for_decision_tree_v2_v3(row))
+        features.append(get_adapted_features_for_decision_tree_v_n(row))
 
     results = loaded_decision_tree.predict(features)
 
     if not os.path.exists("Predictions"):
         os.mkdir("Predictions")
 
-    with open("Predictions/decision_tree_v2.csv", "w") as f:
+    with open(f"Predictions/decision_tree_v{n}.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(["PassengerId", "Survived"])
         writer.writerows(zip(passenger_ids, results))
 
-    print("Predictions have been saved to Predictions/decision_tree_v2.csv")
+    print(f"Predictions have been saved to Predictions/decision_tree_v{n}.csv")
 
-def evaluate_test_csv_for_decision_tree_v3():
-    loaded_decision_tree = joblib.load("Models/titanic_decision_tree_model_v3.joblib")
+def evaluate_test_csv_for_decision_tree_v7():
+    loaded_decision_tree = joblib.load("Models/titanic_decision_tree_model_v7.joblib")
 
     with open("Data/test.csv", "r") as f:
         reader = csv.reader(f)
@@ -151,19 +162,19 @@ def evaluate_test_csv_for_decision_tree_v3():
 
     for row in content:
         passenger_ids.append(row[0])
-        features.append(get_adapted_features_for_decision_tree_v2_v3(row))
+        features.append(get_adapted_features_for_decision_tree_v7(row))
 
     results = loaded_decision_tree.predict(features)
 
     if not os.path.exists("Predictions"):
         os.mkdir("Predictions")
 
-    with open("Predictions/decision_tree_v3.csv", "w") as f:
+    with open("Predictions/decision_tree_v7.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(["PassengerId", "Survived"])
         writer.writerows(zip(passenger_ids, results))
 
-    print("Predictions have been saved to Predictions/decision_tree_v3.csv")
+    print("Predictions have been saved to Predictions/decision_tree_v7.csv")
 
 def evaluate_passenger_request_v1(request):
     feature = get_adapted_features_for_decision_tree_from_request_v1(request)
@@ -175,6 +186,10 @@ def evaluate_passenger_request_v1(request):
 if __name__ == "__main__":
     print("-" * 50)
     evaluate_test_csv_for_decision_tree_v1()
-    evaluate_test_csv_for_decision_tree_v2()
-    evaluate_test_csv_for_decision_tree_v3()
+    
+    for i in range(2, 7):
+        evaluate_test_csv_for_decision_tree_v_n(i)
+    
+    evaluate_test_csv_for_decision_tree_v7()
+
     print("-" * 50)
