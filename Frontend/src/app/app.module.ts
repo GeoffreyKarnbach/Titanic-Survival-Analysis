@@ -9,12 +9,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PassengerFormComponent } from './components/shared/passenger-form/passenger-form.component';
+import { DecisionTreeV2Component } from './components/pages/decision-tree-v2/decision-tree-v2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DecisionTreeComponent,
-    StartPageComponent
+    StartPageComponent,
+    PassengerFormComponent,
+    DecisionTreeV2Component
   ],
   imports: [
     BrowserModule,

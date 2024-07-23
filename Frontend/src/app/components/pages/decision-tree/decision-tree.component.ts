@@ -28,7 +28,11 @@ export class DecisionTreeComponent {
   }
   constructor(private survivalPredictionService: SurvivalPredictionService){}
 
-  onSubmit(form: NgForm): void {
+  onSubmit(_: Event): void {
+    this.requestDto.model = "decision_tree";
+
+    console.log(this.requestDto);
+
     this.loading = true;
     this.survivalPredictionService.getSurvivalPrediction(this.requestDto).subscribe(
       (response) => {

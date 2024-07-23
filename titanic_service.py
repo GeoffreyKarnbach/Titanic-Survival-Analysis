@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
-from DecisionTree.evaluate_decision_tree import evaluate_passenger_request
+from DecisionTree.evaluate_decision_tree import evaluate_passenger_request_v1
 
 class PredictionRequest:
     def __init__(self, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked, model):
@@ -65,7 +65,7 @@ def prediction():
     return jsonify(response), 200
 
 def predict_decision_tree(request_data):
-    return evaluate_passenger_request(request_data)
+    return evaluate_passenger_request_v1(request_data)
     
 
 if __name__ == '__main__':

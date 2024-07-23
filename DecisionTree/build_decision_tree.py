@@ -8,8 +8,8 @@ def get_int_for_gender(value):
 def get_int_for_port(value):
     return {"S":0, "C": 1, "Q": 2}[value]
 
-def build_model():
-    with open("DATA/titanic_dataset_for_decision_tree.csv", "r") as f:
+def build_model_v1():
+    with open("DATA/titanic_dataset_for_decision_tree_v1.csv", "r") as f:
         content = f.readlines()
         content = [x.strip() for x in content]
         content = [x.split(";") for x in content]
@@ -38,9 +38,9 @@ def build_model():
     if not os.path.exists("Models"):
         os.mkdir("Models")
 
-    joblib.dump(clf, "Models/titanic_decision_tree_model.joblib")
+    joblib.dump(clf, "Models/titanic_decision_tree_model_v1.joblib")
 
-    print("Model has been built and saved to Models/titanic_decision_tree_model.joblib")
+    print("Decision tree version 1 - Model has been built and saved to Models/titanic_decision_tree_model_v1.joblib")
 
 if __name__ == "__main__":
-    build_model()
+    build_model_v1()
