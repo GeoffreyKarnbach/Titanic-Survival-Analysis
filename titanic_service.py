@@ -1,4 +1,7 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+import joblib
+from DecisionTree.evaluate_decision_tree import evaluate_passenger_request
 
 class PredictionRequest:
     def __init__(self, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked, model):
@@ -16,8 +19,13 @@ class PredictionRequest:
         self.model = model
 
 app = Flask(__name__)
+CORS(app)
 
 ALLOWED_MODELS = ['decision_tree']
+
+@app.route('/', methods=['GET'])
+def index():
+    return 'Welcome to Titanic Prediction Service!'
 
 @app.route('/prediction', methods=['POST'])
 def prediction():
@@ -47,23 +55,18 @@ def prediction():
         embarked=data['embarked'],
         model=data['model']
     )
+
+    response = None
+
+    if prediction_request.model == 'decision_tree':
+        response = {"Survived":predict_decision_tree(prediction_request)}
+
     
-    # For demonstration, let's just return the received data as a confirmation
-    response_data = {
-        'pclass': prediction_request.pclass,
-        'name': prediction_request.name,
-        'sex': prediction_request.sex,
-        'age': prediction_request.age,
-        'sibsp': prediction_request.sibsp,
-        'parch': prediction_request.parch,
-        'ticket': prediction_request.ticket,
-        'fare': prediction_request.fare,
-        'cabin': prediction_request.cabin,
-        'embarked': prediction_request.embarked,
-        'model': prediction_request.model
-    }
+    return jsonify(response), 200
+
+def predict_decision_tree(request_data):
+    return evaluate_passenger_request(request_data)
     
-    return jsonify(response_data), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

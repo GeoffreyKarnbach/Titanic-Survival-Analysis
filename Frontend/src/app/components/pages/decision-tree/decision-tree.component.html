@@ -1,0 +1,209 @@
+<div class="container text-center">
+  <h1 class="mt-3 text-primary">Passenger data</h1>
+</div>
+
+<br>
+
+<div class="container">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="col-lg-6 mx-auto">
+    <div class="mb-2">
+      <div class="row">
+          <label for="passengerClass" class="col-form-label text-start text-muted col-md-4">Passenger class:</label>
+          <div class="col-md-8">
+            <input
+              type="number"
+              id="passengerClass"
+              name="passengerClass"
+              class="form-control"
+              [(ngModel)]="requestDto.pclass"
+              placeholder="Passenger class"
+              min="1" max="3" step="1"
+              required>
+            <div class="invalid-feedback">Passenger class needs to be between 1 and 3</div>
+          </div>
+        </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="row">
+        <label for="passengerName" class="col-form-label text-start text-muted col-md-2 col-lg-4">Passenger name:</label>
+        <div class="col-md-8">
+          <input
+            type="text"
+            id="passengerName"
+            name="passengerName"
+            placeholder="Passenger Name"
+            class="form-control"
+            [(ngModel)]="requestDto.name"
+            required
+          />
+          <div class="invalid-feedback">Passenger name is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="row">
+        <label for="passengerSex" class="col-form-label text-start text-muted col-md-2 col-lg-4">Passenger gender:</label>
+        <div class="col-md-8">
+          <select class="form-select" id="passengerSex" name="passengerSex" [(ngModel)]="requestDto.sex" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="row">
+          <label for="passengerAge" class="col-form-label text-start text-muted col-md-4">Passenger age:</label>
+          <div class="col-md-8">
+            <input
+              type="number"
+              id="passengerAge"
+              name="passengerAge"
+              class="form-control"
+              [(ngModel)]="requestDto.age"
+              placeholder="Passenger age"
+              min="1" max="100" step="1"
+              required>
+            <div class="invalid-feedback">Passengers age needs to be between 1 and 100</div>
+          </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="mb-2">
+      <div class="row">
+          <label for="passengerSibsp" class="col-form-label text-start text-muted col-md-4"># Siblings / Spouses:</label>
+          <div class="col-md-8">
+            <input
+              type="number"
+              id="passengerSibsp"
+              name="passengerSibsp"
+              class="form-control"
+              [(ngModel)]="requestDto.sibsp"
+              placeholder="Passenger number of siblings and spouses"
+              min="0" max="20" step="1"
+              required>
+            <div class="invalid-feedback">Passenger sibsp number needs to be between 0 and 20</div>
+          </div>
+        </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="row">
+          <label for="passengerParch" class="col-form-label text-start text-muted col-md-4"># Parents / Children:</label>
+          <div class="col-md-8">
+            <input
+              type="number"
+              id="passengerParch"
+              name="passengerParch"
+              class="form-control"
+              [(ngModel)]="requestDto.parch"
+              placeholder="Passenger number of parents and children"
+              min="0" max="20" step="1"
+              required>
+            <div class="invalid-feedback">Passenger parch number needs to be between 0 and 20</div>
+          </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="mb-2">
+      <div class="row">
+        <label for="passengerTicket" class="col-form-label text-start text-muted col-md-2 col-lg-4">Passenger ticket:</label>
+        <div class="col-md-8">
+          <input
+            type="text"
+            id="passengerTicket"
+            name="passengerTicket"
+            placeholder="Passenger ticket"
+            class="form-control"
+            [(ngModel)]="requestDto.ticket"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="row">
+          <label for="passengerFare" class="col-form-label text-start text-muted col-md-4">Passenger fare:</label>
+          <div class="col-md-8">
+            <input
+              type="number"
+              id="passengerFare"
+              name="passengerFare"
+              class="form-control"
+              [(ngModel)]="requestDto.fare"
+              placeholder="Passenger fare"
+              min="1" max="500" step="1"
+              required>
+            <div class="invalid-feedback">Passenger fare needs to be between 1 and 500</div>
+          </div>
+        </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="row">
+        <label for="passengerCabin" class="col-form-label text-start text-muted col-md-2 col-lg-4">Passenger cabin:</label>
+        <div class="col-md-8">
+          <input
+            type="text"
+            id="passengerCabin"
+            name="passengerCabin"
+            placeholder="Passenger cabin"
+            class="form-control"
+            [(ngModel)]="requestDto.cabin"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="row">
+        <label for="passengerEmbarked" class="col-form-label text-start text-muted col-md-2 col-lg-4">Passenger embarkation:</label>
+        <div class="col-md-8">
+          <select class="form-select" id="passengerEmbarked" name="passengerEmbarked" [(ngModel)]="requestDto.embarked" required>
+            <option value="S">Southampton</option>
+            <option value="C">Cherbourg</option>
+            <option value="Q">Queenstown</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="mb-2">
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+          <button type="submit" class="btn btn-primary btn-lg">
+            Check survival
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="col-lg-6 mx-auto">
+    <br>
+    <br>
+    <div *ngIf="survivalPrediction != null" class="mt-3 text-center"> <!-- Add text-center here -->
+      <h2 class="text-primary">Survival prediction</h2>
+      <div class="text-muted">
+        <p>Passenger <strong>{{ requestDto.name }}</strong> would <strong>have {{ survivalPrediction ? '' : 'not' }} survived!</strong></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Loading overlay -->
+<div *ngIf="loading" class="loading-overlay text-center mt-3">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

@@ -7,34 +7,40 @@ def get_int_for_gender(value):
 
 def get_int_for_port(value):
     return {"S":0, "C": 1, "Q": 2}[value]
-    
-with open("DATA/titanic_dataset_for_decision_tree.csv", "r") as f:
-    content = f.readlines()
-    content = [x.strip() for x in content]
-    content = [x.split(";") for x in content]
-    headers = content[0]
 
-    content = content[1:]
+def build_model():
+    with open("DATA/titanic_dataset_for_decision_tree.csv", "r") as f:
+        content = f.readlines()
+        content = [x.strip() for x in content]
+        content = [x.split(";") for x in content]
+        headers = content[0]
 
-labels = [row[0] for row in content]
-features = []
+        content = content[1:]
 
-for row in content:
-    feature = []
+    labels = [row[0] for row in content]
+    features = []
 
-    feature.append(float(row[1]))
-    feature.append(get_int_for_gender(row[2]))
-    feature.append(float(row[3]))
-    feature.append(float(row[4]))
-    feature.append(float(row[5]))
-    feature.append(get_int_for_port(row[6]))
+    for row in content:
+        feature = []
 
-    features.append(feature)
+        feature.append(float(row[1]))
+        feature.append(get_int_for_gender(row[2]))
+        feature.append(float(row[3]))
+        feature.append(float(row[4]))
+        feature.append(float(row[5]))
+        feature.append(get_int_for_port(row[6]))
 
-clf = tree.DecisionTreeClassifier()
-clf = clf.fit(features, labels)
+        features.append(feature)
 
-if not os.path.exists("Models"):
-    os.mkdir("Models")
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(features, labels)
 
-joblib.dump(clf, "Models/titanic_decision_tree_model.joblib")
+    if not os.path.exists("Models"):
+        os.mkdir("Models")
+
+    joblib.dump(clf, "Models/titanic_decision_tree_model.joblib")
+
+    print("Model has been built and saved to Models/titanic_decision_tree_model.joblib")
+
+if __name__ == "__main__":
+    build_model()
