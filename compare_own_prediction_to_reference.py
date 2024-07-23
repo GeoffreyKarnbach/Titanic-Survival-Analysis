@@ -11,7 +11,7 @@ with open("Predictions/solution.csv") as f:
 results = []
 
 # Iterate over all csv files in the Predictions folder
-for file in os.listdir("Predictions"):
+for file in sorted(os.listdir("Predictions")):
     if file == "solution.csv":
         continue
 
@@ -36,7 +36,7 @@ for file in os.listdir("Predictions"):
 results.sort(key=lambda x: x[1], reverse=True)
 
 print("-" * 50)
-print("\nBest predictions:")
+print("Best predictions:")
 print("\n".join([f"{x[0]}: {x[1] * 100:.2f}%" for x in results[:5]]))
 print("-" * 50)
 
