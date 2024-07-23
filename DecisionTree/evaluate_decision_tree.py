@@ -76,7 +76,7 @@ def get_adapted_features_for_decision_tree_v7(row):
     title = row[2].split(',')[1].split('.')[0].strip()
     title = title if title in ['Mr', 'Mrs', 'Miss', 'Master', 'None'] else 'Other'
     feature.append({"Mr": 1, "Mrs": 2, "Miss": 3, "Master": 4, "Other": 5, "None": 6}[title])
-    
+
     return feature
 
 def get_adapted_features_for_decision_tree_from_request_v1(request):
@@ -88,6 +88,32 @@ def get_adapted_features_for_decision_tree_from_request_v1(request):
     feature.append(int(request.sibsp) + int(request.parch))
     feature.append(float(request.fare))
     feature.append(get_int_for_port(request.embarked))
+
+    return feature
+
+def get_adapted_features_for_decision_tree_from_request_v_n(request):
+    feature = []
+
+    feature.append(safe_to_int(request.pclass))
+    feature.append(get_int_for_gender(request.sex))
+    feature.append(get_int_for_age(request.age))
+    feature.append(safe_to_int(request.sibsp) + safe_to_int(request.parch))
+    feature.append(get_int_for_fare(request.fare))
+    feature.append(get_int_for_port(request.embarked))
+
+    return feature
+
+def get_adapted_features_for_decision_tree_from_request_v7(request):
+
+    feature = get_adapted_features_for_decision_tree_from_request_v_n(request)
+    feature.append(1 if feature[4] == 0 else 0)
+
+    try:
+        title = request.name.split(',')[1].split('.')[0].strip()
+    except:
+        title = "None"
+    title = title if title in ['Mr', 'Mrs', 'Miss', 'Master', 'None'] else 'Other'
+    feature.append({"Mr": 1, "Mrs": 2, "Miss": 3, "Master": 4, "Other": 5, "None": 6}[title])
 
     return feature
 
@@ -179,6 +205,20 @@ def evaluate_test_csv_for_decision_tree_v7():
 def evaluate_passenger_request_v1(request):
     feature = get_adapted_features_for_decision_tree_from_request_v1(request)
     loaded_decision_tree = joblib.load("Models/titanic_decision_tree_model_v1.joblib")
+    result = loaded_decision_tree.predict([feature])
+
+    return result[0]
+
+def evaluate_passenger_request_v_n(request, n = 2):
+    feature = get_adapted_features_for_decision_tree_from_request_v_n(request)
+    loaded_decision_tree = joblib.load(f"Models/titanic_decision_tree_model_v{n}.joblib")
+    result = loaded_decision_tree.predict([feature])
+
+    return result[0]
+
+def evaluate_passenger_request_v7(request):
+    feature = get_adapted_features_for_decision_tree_from_request_v7(request)
+    loaded_decision_tree = joblib.load("Models/titanic_decision_tree_model_v7.joblib")
     result = loaded_decision_tree.predict([feature])
 
     return result[0]
