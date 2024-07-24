@@ -5,28 +5,6 @@
 
 #!/bin/bash
 
-# Run the survival analysis
-jupyter nbconvert --to notebook --execute survival_analysis.ipynb --output executed_survival_analysis.ipynb
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "Survival notebook analysis completed successfully."
-else
-    echo "Survival notebook analysis failed."
-    exit 1
-fi
-
-# Run the decision tree
-python DecisionTree/build_decision_tree.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "Decision tree model build completed successfully."
-else
-    echo "Decision tree model build failed."
-    exit 1
-fi
-
 # Evaluate the decision tree
 python DecisionTree/evaluate_decision_tree.py
 
