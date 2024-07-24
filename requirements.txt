@@ -1,0 +1,10 @@
+numpy
+pandas
+matplotlib
+tabulate
+Flask
+Flask-CORS
+joblib
+scikit-learn
+jupyter
+nbconvert

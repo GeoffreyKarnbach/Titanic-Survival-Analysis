@@ -17,6 +17,18 @@ if [[ "$confirm" != "yes" ]]; then
     exit 0
 fi
 
+# Install Python dependencies
+echo "Installing Python dependencies from requirements.txt..."
+pip install -r requirements.txt
+
+# Check if the previous command was successful
+if [ $? -eq 0 ]; then
+    echo "Python dependencies installed successfully."
+else
+    echo "Failed to install Python dependencies."
+    exit 1
+fi
+
 # Run the survival analysis
 jupyter nbconvert --to notebook --execute survival_analysis.ipynb --output executed_survival_analysis.ipynb
 
