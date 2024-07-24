@@ -62,6 +62,15 @@ Decision tree models were developed and evaluated using the prepared dataset:
 - **Machine Learning Models**: Plans to train additional machine learning models using TensorFlow to compare with the decision tree models and further enhance prediction accuracy.
 - **Model Refinement**: Continual improvement of data preprocessing techniques and model tuning.
 
+## Images
+
+![Start Page 1](Images_Readme/StartPage1.png)
+![Start Page 2](Images_Readme/StartPage2.png)
+
+![Prediction Form](Images_Readme/PredictionForm.png)
+
+![Prediction Result](Images_Readme/PredictionResults.png)
+
 ## Getting Started
 
 To replicate or extend this project, follow these steps:
@@ -102,6 +111,7 @@ To replicate or extend this project, follow these steps:
 ## Contact
 
 For any questions or suggestions, please contact:
+
 - Author: Geoffrey Karnbach
 - GitHub: https://github.com/GeoffreyKarnbach
 
