@@ -10,7 +10,7 @@ export class PassengerFormComponent {
 
   @Input() requestDto: PredictionRequestDto = {
     pclass: 1,
-    name: "Mr. John Doe",
+    name: "Doe, Mr. John",
     sex: "male",
     age: 30,
     sibsp: 0,
@@ -19,10 +19,12 @@ export class PassengerFormComponent {
     fare: 100,
     cabin: "A123",
     embarked: "S",
-    model: "decision_tree"
+    model: "*"
   };
 
   @Output() submitRequest = new EventEmitter<PredictionRequestDto>();
+
+  decisionTreeVersions: string[] = ['decision_tree_v1', 'decision_tree_v2', 'decision_tree_v3', 'decision_tree_v4', 'decision_tree_v5', 'decision_tree_v6', 'decision_tree_v7', '*'];
 
   onSubmit(event: Event) {
     event.preventDefault();

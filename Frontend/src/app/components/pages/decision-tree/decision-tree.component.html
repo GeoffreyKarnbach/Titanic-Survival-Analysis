@@ -1,7 +1,16 @@
 <div class="container text-center">
-  <h1 class="mt-3 text-primary">Decision Tree v1</h1>
-  <p>DESCRIPTION</p>
+  <h1 class="mt-3 text-primary"><u>Decision Tree</u></h1>
+  <br>
+  <div class="container text-start" style="max-width: 700px; margin: 0 auto;">
+    <p>
+      To get the survival prediction, please fill out the passenger details in the form below.
+      Your input will be evaluated using a decision tree algorithm.
+      After submission, the model will provide a prediction based on the provided data.
+      Explore both single and multiple prediction results to see how different models assess survival probability.
+    </p>
+  </div>
 </div>
+
 
 <br>
 
@@ -10,14 +19,40 @@
   <app-passenger-form (submit)="onSubmit($event)" [requestDto]="requestDto"></app-passenger-form>
 
   <div class="col-lg-6 mx-auto">
-    <div *ngIf="survivalPrediction != null" class="mt-3 text-center" style="margin-top: 2em;"> <!-- Add text-center here -->
-      <h2 class="text-primary">Survival prediction</h2>
-      <div class="text-muted">
-        <p>Passenger <strong>{{ requestDto.name }}</strong> would <strong>have {{ survivalPrediction ? '' : 'not' }} survived!</strong></p>
+    <div *ngIf="survivalPredictionType == 'single_prediction'">
+      <div *ngIf="survivalPrediction != null" class="mt-3 text-center" style="margin-top: 2em;">
+        <h3 class="text-primary">Survival prediction</h3>
+        <br>
+        <div class="text-muted">
+          <p>Passenger <strong>{{ requestDto.name }}</strong> would <strong>have {{ survivalPrediction ? '' : 'not' }} survived!</strong></p>
+        </div>
       </div>
     </div>
-  </div>
 
+    <div *ngIf="survivalPredictionType == 'multiple_prediction'">
+      <div *ngIf="survivalPrediction != null" class="mt-3 text-center" style="margin-top: 2em;">
+        <h3 class="text-primary">Survival prediction</h3>
+        <br>
+        <div class="text-muted">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Decision Tree Model</th>
+                <th>Prediction</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of getEntries(survivalPrediction)">
+                <td>{{ entry.key.split('_').slice(-1)[0] }}</td>
+                <td>{{ entry.value == 1 ? "survived" : "not survived" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div *ngIf="loading" class="loading-overlay text-center mt-3">

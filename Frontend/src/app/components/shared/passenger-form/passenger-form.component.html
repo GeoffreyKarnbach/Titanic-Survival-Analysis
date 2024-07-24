@@ -8,25 +8,40 @@
   <form #form="ngForm" (ngSubmit)="onSubmit($event)" class="col-lg-6 mx-auto">
     <div class="mb-2">
       <div class="row">
-          <label for="passengerClass" class="col-form-label text-start text-muted col-md-4">Passenger class:</label>
-          <div class="col-md-8">
-            <input
-              type="number"
-              id="passengerClass"
-              name="passengerClass"
-              class="form-control"
-              [(ngModel)]="requestDto.pclass"
-              placeholder="Passenger class"
-              min="1" max="3" step="1"
-              required>
-            <div class="invalid-feedback">Passenger class needs to be between 1 and 3</div>
-          </div>
+        <label for="passengerClass" class="col-form-label text-start text-muted col-md-4">
+          Passenger class:
+          <i class="bi bi-question-circle"
+             ngbTooltip="Passenger class should be between 1 and 3"
+             placement="top"
+             aria-label="Tooltip on top">
+          </i>
+        </label>
+        <div class="col-md-8">
+          <input
+            type="number"
+            id="passengerClass"
+            name="passengerClass"
+            class="form-control"
+            [(ngModel)]="requestDto.pclass"
+            placeholder="Passenger class"
+            min="1" max="3" step="1"
+            required>
+          <div class="invalid-feedback">Passenger class needs to be between 1 and 3</div>
         </div>
+      </div>
     </div>
+
 
     <div class="mb-2">
       <div class="row">
-        <label for="passengerName" class="col-form-label text-start text-muted col-md-2 col-lg-4">Passenger name:</label>
+        <label for="passengerName" class="col-form-label text-start text-muted col-md-2 col-lg-4">
+          Passenger name:
+          <i class="bi bi-question-circle"
+              ngbTooltip="LastName, Title. FirstName"
+              placement="top"
+              aria-label="Tooltip on top">
+          </i>
+        </label>
         <div class="col-md-8">
           <input
             type="text"
@@ -44,7 +59,9 @@
 
     <div class="mb-2">
       <div class="row">
-        <label for="passengerSex" class="col-form-label text-start text-muted col-md-2 col-lg-4">Passenger gender:</label>
+        <label for="passengerSex" class="col-form-label text-start text-muted col-md-2 col-lg-4">
+          Passenger gender:
+        </label>
         <div class="col-md-8">
           <select class="form-select" id="passengerSex" name="passengerSex" [(ngModel)]="requestDto.sex" required>
             <option value="male">Male</option>
@@ -56,7 +73,13 @@
 
     <div class="mb-2">
       <div class="row">
-          <label for="passengerAge" class="col-form-label text-start text-muted col-md-4">Passenger age:</label>
+          <label for="passengerAge" class="col-form-label text-start text-muted col-md-4">Passenger age:
+            <i class="bi bi-question-circle"
+              ngbTooltip="Age should be between 1 and 100"
+              placement="top"
+              aria-label="Tooltip on top">
+            </i>
+          </label>
           <div class="col-md-8">
             <input
               type="number"
@@ -76,7 +99,13 @@
 
     <div class="mb-2">
       <div class="row">
-          <label for="passengerSibsp" class="col-form-label text-start text-muted col-md-4"># Siblings / Spouses:</label>
+          <label for="passengerSibsp" class="col-form-label text-start text-muted col-md-4"># Siblings / Spouses:
+            <i class="bi bi-question-circle"
+              ngbTooltip="Number of siblings and spouses should be between 0 and 20"
+              placement="top"
+              aria-label="Tooltip on top">
+            </i>
+          </label>
           <div class="col-md-8">
             <input
               type="number"
@@ -94,7 +123,13 @@
 
     <div class="mb-2">
       <div class="row">
-          <label for="passengerParch" class="col-form-label text-start text-muted col-md-4"># Parents / Children:</label>
+          <label for="passengerParch" class="col-form-label text-start text-muted col-md-4"># Parents / Children:
+            <i class="bi bi-question-circle"
+              ngbTooltip="Number of parents and children should be between 0 and 20"
+              placement="top"
+              aria-label="Tooltip on top">
+            </i>
+          </label>
           <div class="col-md-8">
             <input
               type="number"
@@ -130,7 +165,13 @@
 
     <div class="mb-2">
       <div class="row">
-          <label for="passengerFare" class="col-form-label text-start text-muted col-md-4">Passenger fare:</label>
+          <label for="passengerFare" class="col-form-label text-start text-muted col-md-4">Passenger fare:
+            <i class="bi bi-question-circle"
+              ngbTooltip="Price paid for the ticket should be between 1 and 500"
+              placement="top"
+              aria-label="Tooltip on top">
+            </i>
+          </label>
           <div class="col-md-8">
             <input
               type="number"
@@ -170,6 +211,33 @@
             <option value="S">Southampton</option>
             <option value="C">Cherbourg</option>
             <option value="Q">Queenstown</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="container text-center">
+      <h3 class="mt-3 text-primary">Model data</h3>
+    </div>
+
+    <br>
+
+    <div class="mb-2">
+      <div class="row">
+        <label for="modelVersion" class="col-form-label text-start text-muted col-md-2 col-lg-4">Model version:
+          <i class="bi bi-question-circle"
+            ngbTooltip="Decision tree model version (if * is selected, all models will be used and displayed in a table)"
+            placement="top"
+            aria-label="Tooltip on top">
+          </i>
+        </label>
+        <div class="col-md-8">
+          <select class="form-select" id="modelVersion" name="modelVersion" [(ngModel)]="requestDto.model" required>
+            <option *ngFor="let version of decisionTreeVersions" [value]="version">
+              {{ version.split('_').slice(-1)[0] }}
+            </option>
           </select>
         </div>
       </div>

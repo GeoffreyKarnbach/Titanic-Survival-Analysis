@@ -69,15 +69,14 @@ def prediction():
     response = None
 
     if prediction_request.model == 'decision_tree_v1':
-        response = {"Survived":predict_decision_tree_v1(prediction_request)}
+        response = {"Survived":predict_decision_tree_v1(prediction_request), "model": prediction_request.model}
     elif prediction_request.model[0:15] == 'decision_tree_v' and prediction_request.model[-1] in ['2', '3', '4', '5', '6']:
-        response = {"Survived":predict_decision_tree_v_n(prediction_request, int(prediction_request.model[-1]))}
+        response = {"Survived":predict_decision_tree_v_n(prediction_request, int(prediction_request.model[-1])), "model": prediction_request.model}
     elif prediction_request.model == 'decision_tree_v7':
-        response = {"Survived":predict_decision_tree_v7(prediction_request)}
+        response = {"Survived":predict_decision_tree_v7(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == '*':
-        response = {"Survived":predict_decision_tree_all(prediction_request)}
+        response = {"Survived":predict_decision_tree_all(prediction_request), "model": prediction_request.model}
     
-    print(response)
     return jsonify(response), 200
 
 def predict_decision_tree_v1(request_data):

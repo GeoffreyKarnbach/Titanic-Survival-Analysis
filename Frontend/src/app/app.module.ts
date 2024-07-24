@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PassengerFormComponent } from './components/shared/passenger-form/passenger-form.component';
-import { DecisionTreeV2Component } from './components/pages/decision-tree-v2/decision-tree-v2.component';
+import { NavbarComponent } from './components/shared';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { DecisionTreeV2Component } from './components/pages/decision-tree-v2/dec
     DecisionTreeComponent,
     StartPageComponent,
     PassengerFormComponent,
-    DecisionTreeV2Component
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

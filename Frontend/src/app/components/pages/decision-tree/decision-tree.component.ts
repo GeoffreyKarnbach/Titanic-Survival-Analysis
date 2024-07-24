@@ -11,11 +11,12 @@ import { SurvivalPredictionService } from '../../../services';
 export class DecisionTreeComponent {
 
   loading: boolean = false;
-  survivalPrediction: boolean | null = null;
+  survivalPredictionType : string | null = null;
+  survivalPrediction: boolean | null | { [key: string]: number } = null;
 
   requestDto: PredictionRequestDto = {
     pclass: 1,
-    name: "Mr. John Doe",
+    name: "Doe, Mr. John",
     sex: "male",
     age: 30,
     sibsp: 0,
@@ -24,12 +25,11 @@ export class DecisionTreeComponent {
     fare: 100,
     cabin: "A123",
     embarked: "S",
-    model: "decision_tree_v1"
+    model: "*"
   }
   constructor(private survivalPredictionService: SurvivalPredictionService){}
 
   onSubmit(_: Event): void {
-    this.requestDto.model = "decision_tree_v1";
 
     console.log(this.requestDto);
 
@@ -38,10 +38,13 @@ export class DecisionTreeComponent {
       (response) => {
         console.log(response);
         this.loading = false;
-        if (response['Survived'] == 1) {
-          this.survivalPrediction = true;
+        if (response['model'] == "*") {
+          this.survivalPredictionType = "multiple_prediction";
+          this.survivalPrediction = response['Survived'];
+          console.log(this.survivalPrediction);
         } else {
-          this.survivalPrediction = false;
+          this.survivalPredictionType = "single_prediction";
+          this.survivalPrediction = response['Survived'] == '1' ? true : false;
         }
       },
       (error) => {
@@ -49,5 +52,9 @@ export class DecisionTreeComponent {
         console.log(error);
       }
     );
+  }
+
+  getEntries(map: boolean | { [key: string]: number }): { key: string, value: number }[] {
+    return Object.entries(map).map(([key, value]) => ({ key, value }));
   }
 }
