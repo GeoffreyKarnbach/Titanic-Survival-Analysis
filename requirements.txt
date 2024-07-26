@@ -8,3 +8,5 @@ joblib
 scikit-learn
 jupyter
 nbconvert
+graphviz
+pydotplus
