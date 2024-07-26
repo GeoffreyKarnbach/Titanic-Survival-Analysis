@@ -1,13 +1,7 @@
 import joblib
 import csv
 import os
-from evaluate_decision_tree import *
-
-def get_adapted_features_for_knn(row):
-    return get_adapted_features_for_decision_tree_v7(row)
-
-def get_adapted_features_for_knn_from_request(request):
-    return get_adapted_features_for_decision_tree_from_request_v7(request)
+from shared import *
 
 def evaluate_test_csv_for_knn():
     loaded_knn = joblib.load("Models/titanic_knn_model.joblib")
@@ -23,7 +17,7 @@ def evaluate_test_csv_for_knn():
 
     for row in content:
         passenger_ids.append(row[0])
-        features.append(get_adapted_features_for_knn(row))
+        features.append(get_adapted_features(row))
 
     results = loaded_knn.predict(features)
 
@@ -38,7 +32,7 @@ def evaluate_test_csv_for_knn():
     print("Predictions have been saved to Predictions/knn.csv")
 
 def evaluate_passenger_request_svm(request):
-    feature = get_adapted_features_for_knn_from_request(request)
+    feature = get_adapted_features_from_request(request)
     loaded_knn = joblib.load("Models/titanic_knn_model.joblib")
     result = loaded_knn.predict([feature])
 

@@ -27,6 +27,17 @@ else
     exit 1
 fi
 
+# Evaluate the KNN model
+python ModelTraining/evaluate_knn.py
+
+# Check if the previous command was successful
+if [ $? -eq 0 ]; then
+    echo "KNN model evaluation to csv files completed successfully."
+else
+    echo "KNN model evaluation to csv files failed."
+    exit 1
+fi
+
 # Compare the own prediction to the reference
 python compare_own_prediction_to_reference.py
 

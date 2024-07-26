@@ -1,48 +1,13 @@
 import joblib
 import csv
 import os
+from shared import *
 
 def safe_to_float(value):
     try:
         return float(value)
     except:
         return 0.0
-
-def safe_to_int(value):
-    try:
-        return int(value)
-    except:
-        return 0
-
-def get_int_for_age(value):
-    # df_decision_tree_2['Age'] = pd.cut(df_decision_tree_2['Age'], bins=[0, 13, 18, 60, 100], labels=[0, 1, 2, 3])
-    value = safe_to_int(value)
-
-    if value <= 13:
-        return 0
-    elif value <= 18:
-        return 1
-    elif value <= 60:
-        return 2
-    return 3
-
-def get_int_for_fare(value):
-    # df_decision_tree_2['Fare'] = pd.cut(df_decision_tree_2['Fare'], bins=[0, 50, 100, 200, 1000], labels=[0, 1, 2, 3])
-    value = safe_to_int(value)
-
-    if value <= 50:
-        return 0
-    elif value <= 100:
-        return 1
-    elif value <= 200:
-        return 2
-    return 3
-    
-def get_int_for_gender(value):
-    return {"male":0, "female": 1}[value]
-
-def get_int_for_port(value):
-    return {"S":0, "C": 1, "Q": 2}[value]
 
 def get_adapted_features_for_decision_tree_v1(row):
     feature = []
@@ -56,29 +21,6 @@ def get_adapted_features_for_decision_tree_v1(row):
 
     return feature
 
-def get_adapted_features_for_decision_tree_v_n(row):
-    feature = []
-
-    feature.append(safe_to_int(row[1]))
-    feature.append(get_int_for_gender(row[3]))
-    feature.append(get_int_for_age(row[4]))
-    feature.append(safe_to_int(row[5]) + safe_to_int(row[6]))
-    feature.append(get_int_for_fare(row[8]))
-    feature.append(get_int_for_port(row[10]))
-
-    return feature
-
-def get_adapted_features_for_decision_tree_v7(row):
-    feature = get_adapted_features_for_decision_tree_v_n(row)
-
-    feature.append(1 if feature[4] == 0 else 0)
-
-    title = row[2].split(',')[1].split('.')[0].strip()
-    title = title if title in ['Mr', 'Mrs', 'Miss', 'Master', 'None'] else 'Other'
-    feature.append({"Mr": 1, "Mrs": 2, "Miss": 3, "Master": 4, "Other": 5, "None": 6}[title])
-
-    return feature
-
 def get_adapted_features_for_decision_tree_from_request_v1(request):
     feature = []
 
@@ -88,32 +30,6 @@ def get_adapted_features_for_decision_tree_from_request_v1(request):
     feature.append(int(request.sibsp) + int(request.parch))
     feature.append(float(request.fare))
     feature.append(get_int_for_port(request.embarked))
-
-    return feature
-
-def get_adapted_features_for_decision_tree_from_request_v_n(request):
-    feature = []
-
-    feature.append(safe_to_int(request.pclass))
-    feature.append(get_int_for_gender(request.sex))
-    feature.append(get_int_for_age(request.age))
-    feature.append(safe_to_int(request.sibsp) + safe_to_int(request.parch))
-    feature.append(get_int_for_fare(request.fare))
-    feature.append(get_int_for_port(request.embarked))
-
-    return feature
-
-def get_adapted_features_for_decision_tree_from_request_v7(request):
-
-    feature = get_adapted_features_for_decision_tree_from_request_v_n(request)
-    feature.append(1 if feature[4] == 0 else 0)
-
-    try:
-        title = request.name.split(',')[1].split('.')[0].strip()
-    except:
-        title = "None"
-    title = title if title in ['Mr', 'Mrs', 'Miss', 'Master', 'None'] else 'Other'
-    feature.append({"Mr": 1, "Mrs": 2, "Miss": 3, "Master": 4, "Other": 5, "None": 6}[title])
 
     return feature
 
@@ -188,7 +104,7 @@ def evaluate_test_csv_for_decision_tree_v7():
 
     for row in content:
         passenger_ids.append(row[0])
-        features.append(get_adapted_features_for_decision_tree_v7(row))
+        features.append(get_adapted_features(row))
 
     results = loaded_decision_tree.predict(features)
 
@@ -217,7 +133,7 @@ def evaluate_passenger_request_v_n(request, n = 2):
     return result[0]
 
 def evaluate_passenger_request_v7(request):
-    feature = get_adapted_features_for_decision_tree_from_request_v7(request)
+    feature = get_adapted_features_from_request(request)
     loaded_decision_tree = joblib.load("Models/titanic_decision_tree_model_v7.joblib")
     result = loaded_decision_tree.predict([feature])
 
