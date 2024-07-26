@@ -1,7 +1,7 @@
 import joblib
 import csv
 import os
-from shared import *
+from ModelTraining.shared import *
 
 def safe_to_float(value):
     try:

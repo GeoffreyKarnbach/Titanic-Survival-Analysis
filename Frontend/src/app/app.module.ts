@@ -11,6 +11,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PassengerFormComponent } from './components/shared/passenger-form/passenger-form.component';
 import { NavbarComponent } from './components/shared';
+import { SupportVectorMachinesComponent } from './components/pages/support-vector-machines/support-vector-machines.component';
+import { EnsembleMethodsComponent } from './components/pages/ensemble-methods/ensemble-methods.component';
+import { KNearestNeighborsComponent } from './components/pages/k-nearest-neighbors/k-nearest-neighbors.component';
+import { LogisticRegressionComponent } from './components/pages/logistic-regression/logistic-regression.component';
+import { PredictionComponent } from './components/pages/prediction/prediction.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,12 @@ import { NavbarComponent } from './components/shared';
     DecisionTreeComponent,
     StartPageComponent,
     PassengerFormComponent,
-    NavbarComponent
+    NavbarComponent,
+    SupportVectorMachinesComponent,
+    EnsembleMethodsComponent,
+    KNearestNeighborsComponent,
+    LogisticRegressionComponent,
+    PredictionComponent
   ],
   imports: [
     BrowserModule,

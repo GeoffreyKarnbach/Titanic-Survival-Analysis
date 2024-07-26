@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 from ModelTraining.evaluate_decision_tree import evaluate_passenger_request_v1, evaluate_passenger_request_v_n, evaluate_passenger_request_v7
+import csv
 
 class PredictionRequest:
     def __init__(self, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked, model):
@@ -29,13 +30,29 @@ ALLOWED_MODELS = [
     'decision_tree_v5',
     'decision_tree_v6',
     'decision_tree_v7',
-    '*'
+    'gradient_boosting',
+    'knn',
+    'log_reg',
+    'random_forest',
+    'svm',
+    'svm_linear',
+    'svm_poly',
+    'svm_rbf',
+    'svm_sigmoid'
 ]
 
 
 @app.route('/', methods=['GET'])
 def index():
     return 'Welcome to Titanic Prediction Service!'
+
+@app.route('/models', methods=['GET'])
+def models():
+    return jsonify({'models': ALLOWED_MODELS}), 200
+
+@app.route('/benchmark', methods=['GET'])
+def benchmark():
+    return jsonify(benchmark_for_models()), 200
 
 @app.route('/prediction', methods=['POST'])
 def prediction():
@@ -48,7 +65,7 @@ def prediction():
             return jsonify({'error': f'Missing field: {field}'}), 400
     
     # Validate the model field4
-    if data['model'] not in ALLOWED_MODELS:
+    if data['model'] not in ALLOWED_MODELS and data['model'] != '*':
         return jsonify({'error': f"Invalid model. Allowed models are: {', '.join(ALLOWED_MODELS)}"}), 400
     
     # Create an instance of PredictionRequest
@@ -66,7 +83,7 @@ def prediction():
         model=data['model']
     )
 
-    response = None
+    response = {"error": "Model prediction not implemented yet."}
 
     if prediction_request.model == 'decision_tree_v1':
         response = {"Survived":predict_decision_tree_v1(prediction_request), "model": prediction_request.model}
@@ -99,7 +116,21 @@ def predict_decision_tree_all(request_data):
     temp["decision_tree_v7"] = evaluate_passenger_request_v7(request_data)
     
     return temp
+
+def benchmark_for_models():
+    result = {}
+
+    for model in ALLOWED_MODELS:
+        result[model] = None
+
+    with open("evaluation.csv","r") as f:
+        reader = csv.reader(f)
+        next(reader)
+
+        for row in reader:
+            result[row[0].split(".")[0]] = row[1]
     
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
