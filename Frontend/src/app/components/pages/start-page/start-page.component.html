@@ -4,6 +4,7 @@
   <p class="lead mb-4 text-center">
     In this project, I conducted an in-depth analysis of the Titanic dataset from Kaggle to develop and fine-tune different machine learning models for predicting passenger survival outcomes. The following outlines the data processing steps undertaken to enhance model accuracy and reliability.
   </p>
+
   <h3 class="mb-4">Data Preparation and Cleaning</h3>
   <p class="mb-4">
     The initial phase involved cleaning and preparing the dataset by addressing the following key tasks:
@@ -24,7 +25,7 @@
   </ul>
   <p class="mb-4">
     By employing these imputation methods, the dataset was enriched with complete and accurate information, setting the stage for robust model development and evaluation.
-    After observing the performance of different imputation techniques, I selected the KNN imputation mode for the final processed dataset, used by almost all models.
+    After observing the performance of different imputation techniques, I selected the MEAN imputation mode for the final processed dataset, used by almost all models.
   </p>
   <h3 class="mb-4">Feature Engineering</h3>
   <p class="mb-4">
@@ -34,16 +35,66 @@
     <li><strong>Categorization of Continuous Variables:</strong> Age and Fare were divided into meaningful categories to better reflect their impact on survival chances (e.g., Fare < 50, 50 - 100, 100 - 200, > 200).</li>
     <li><strong>New Feature Creation:</strong> Introduced new features such as <code>isAlone</code>, indicating whether a passenger was traveling alone, and <code>title</code>, extracted from passenger names to capture social and cultural information.</li>
   </ul>
+  <h3 class="mb-4">Dataset</h3>
+  <p class="mb-4">
+    The processed dataset is available for <a href="http://localhost:8000/dataset">download</a> and exploration.
+    Except for the decision tree models 1 to 6, the same dataset has been used.
+    The dataset contains the following attributes:
+  </p>
+  <ul>
+    <li><strong>Pclass:</strong> Passenger Class (1 = 1st, 2 = 2nd, 3 = 3rd)</li>
+    <li><strong>Sex:</strong> Passenger Gender ( 0 = Male, 1 = Female)</li>
+    <li><strong>Age:</strong> Passenger Age (0 = 0 -> 13, 1 = 13 -> 18, 2 = 18 -> 60, 3 = 60 -> 100)</li>
+    <li><strong>Fare:</strong> Ticket Fare (0 = 0 -> 50, 1 = 50 -> 100, 2 = 100 -> 200, 3 = 200 -> 1000)</li>
+    <li><strong>Embarked:</strong> Port of Embarkation (0 = Southampton, 1 = Cherbourg, 2 = Queenstown)</li>
+    <li><strong>Relatives:</strong> Number of Relatives (Sibling, Spouse, Parent, Child)</li>
+    <li><strong>IsAlone:</strong> Traveling Alone (0 = No, 1 = Yes)</li>
+    <li><strong>Title:</strong> Passenger Title (0 = Mr, 1 = Mrs, 2 = Miss, 3 = Master, 4 = Others)</li>
+  </ul>
+  <p class="mb-4">
+    The target variable is <code>Survived</code>, indicating whether the passenger survived (1) or perished (0).
+  </p>
+
   <h3 class="mb-4">Model Development and Evaluation</h3>
-  <p>TODO</p>
+  <p class="mb-4">
+    I developed and evaluated multiple machine learning models to predict passenger survival outcomes. The models were trained on the processed dataset and their hyperparameters were fine-tuned to optimize performance. The following models were implemented and evaluated:
+  </p>
+  <ul>
+    <li><a [routerLink]="['/decision-tree']">Decision Tree Classifier</a></li>
+    <li><a [routerLink]="['/support-vector-machines']">Support Vector Machines (SVM)</a></li>
+    <li><a [routerLink]="['/ensemble-methods']">Random Forest Classifier / Gradient Boosting Classifier</a></li>
+    <li><a [routerLink]="['/k-nearest-neighbors']">K-Nearest Neighbors (KNN)</a></li>
+    <li><a [routerLink]="['/logistic-regression']">Logistic Regression</a></li>
+  </ul>
 
-  <h3 class="mb-4">Benchmarks</h3>
+  <h3 class="mb-4">Benchmarks - model accuracy</h3>
 
+  <p class="mb-4">
+    The prediction of each model on the test dataset from kaggle was compared to the perfect prediction (100% accuracy - found online):
+  </p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Accuracy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let key of benchmarkKeys">
+        <td>{{ key }}</td>
+        <td>{{ formatBenchmarkValue(benchmarkResults[key]) }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!--
   <div class="d-flex flex-column align-items-center my-5">
-    <button type="button" class="btn btn-primary btn-lg mb-3" [routerLink]="['/decision-tree']">
+    <button type="button" class="btn btn-primary btn-lg mb-3" [routerLink]="['/prediction']">
       Try it out yourself!
     </button>
   </div>
+  -->
 
   <footer class="mt-5">
     <p class="text-muted">© 2024 Titanic Survival Prediction. All rights reserved.</p>

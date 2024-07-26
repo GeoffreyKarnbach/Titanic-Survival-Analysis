@@ -1,8 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import joblib
-from ModelTraining.evaluate_decision_tree import evaluate_passenger_request_v1, evaluate_passenger_request_v_n, evaluate_passenger_request_v7
+import sys
+import os
 import csv
+
+sys.path.append(os.path.join(os.path.dirname(__file__), 'ModelTraining'))
+
+from ModelTraining.evaluate_decision_tree import evaluate_passenger_request_v1, evaluate_passenger_request_v_n, evaluate_passenger_request_v7
 
 class PredictionRequest:
     def __init__(self, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked, model):
@@ -53,6 +58,10 @@ def models():
 @app.route('/benchmark', methods=['GET'])
 def benchmark():
     return jsonify(benchmark_for_models()), 200
+
+@app.route('/dataset', methods=['GET'])
+def get_dataset_file():
+    return send_file('Data/titanic_dataset_for_decision_tree_v7.csv', as_attachment=True, download_name='processed_dataset.csv')
 
 @app.route('/prediction', methods=['POST'])
 def prediction():
@@ -128,7 +137,7 @@ def benchmark_for_models():
         next(reader)
 
         for row in reader:
-            result[row[0].split(".")[0]] = row[1]
+            result[row[0].split(".")[0]] = float(row[1])
     
     return result
 
