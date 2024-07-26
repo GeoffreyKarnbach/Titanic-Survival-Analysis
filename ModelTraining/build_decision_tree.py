@@ -32,7 +32,7 @@ def build_model_v1():
 
         features.append(feature)
 
-    clf = tree.DecisionTreeClassifier()
+    clf = tree.DecisionTreeClassifier(random_state=2024)
     clf = clf.fit(features, labels)
 
     if not os.path.exists("Models"):
@@ -62,7 +62,7 @@ def build_model_version_n(n = 2, feature_count = 6):
 
         features.append(feature)
 
-    clf = tree.DecisionTreeClassifier()
+    clf = tree.DecisionTreeClassifier(random_state=2024)
     clf = clf.fit(features, labels)
 
     if not os.path.exists("Models"):

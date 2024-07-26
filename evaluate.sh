@@ -1,42 +1,19 @@
-# First run all cells in "survival_analysis.ipynb" to generate the survival analysis results
-# Then run "ModelTraining/build_decision_tree.py" to generate the decision tree
-# Then run "ModelTraining/evaluate_decision_tree.py" to evaluate the decision tree
-# Finally run "compare_own_prediction_to_reference.py" to generate the evaluation results
-
 #!/bin/bash
 
-# Evaluate the decision tree
-python ModelTraining/evaluate_decision_tree.py
+# Loop through and run all Python scripts in the ModelTraining folder with prefix "evaluate_"
 
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "Decision tree model evaluation to csv files completed successfully."
-else
-    echo "Decision tree model evaluation to csv files failed."
-    exit 1
-fi
-
-# Evaluate the SVM model
-python ModelTraining/evaluate_svm.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "SVM model evaluation to csv files completed successfully."
-else
-    echo "SVM model evaluation to csv files failed."
-    exit 1
-fi
-
-# Evaluate the KNN model
-python ModelTraining/evaluate_knn.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "KNN model evaluation to csv files completed successfully."
-else
-    echo "KNN model evaluation to csv files failed."
-    exit 1
-fi
+for script in ModelTraining/evaluate_*.py; do
+    echo "Running $script..."
+    python "$script"
+    
+    # Check if the previous command was successful
+    if [ $? -eq 0 ]; then
+        echo "$script completed successfully."
+    else
+        echo "$script failed."
+        exit 1
+    fi
+done
 
 # Compare the own prediction to the reference
 python compare_own_prediction_to_reference.py

@@ -40,71 +40,20 @@ else
     exit 1
 fi
 
-# Run the decision tree
-python ModelTraining/build_decision_tree.py
+# Loop through and run all Python scripts in the ModelTraining folder
 
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "Decision tree model build completed successfully."
-else
-    echo "Decision tree model build failed."
-    exit 1
-fi
-
-# Evaluate the decision tree
-python ModelTraining/evaluate_decision_tree.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "Decision tree model evaluation to csv files completed successfully."
-else
-    echo "Decision tree model evaluation to csv files failed."
-    exit 1
-fi
-
-# Run the SVM model
-python ModelTraining/build_svm.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "SVM model build completed successfully."
-else
-    echo "SVM model build failed."
-    exit 1
-fi
-
-# Evaluate the SVM model
-python ModelTraining/evaluate_svm.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "SVM model evaluation to csv files completed successfully."
-else
-    echo "SVM model evaluation to csv files failed."
-    exit 1
-fi
-
-# Run the KNN model
-python ModelTraining/build_knn.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "KNN model build completed successfully."
-else
-    echo "KNN model build failed."
-    exit 1
-fi
-
-# Evaluate the KNN model
-python ModelTraining/evaluate_knn.py
-
-# Check if the previous command was successful
-if [ $? -eq 0 ]; then
-    echo "KNN model evaluation to csv files completed successfully."
-else
-    echo "KNN model evaluation to csv files failed."
-    exit 1
-fi
+for script in ModelTraining/*.py; do
+    echo "Running $script..."
+    python "$script"
+    
+    # Check if the previous command was successful
+    if [ $? -eq 0 ]; then
+        echo "$script completed successfully."
+    else
+        echo "$script failed."
+        exit 1
+    fi
+done
 
 # Compare the own prediction to the reference
 python compare_own_prediction_to_reference.py
