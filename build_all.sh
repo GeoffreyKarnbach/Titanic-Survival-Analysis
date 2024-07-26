@@ -41,7 +41,7 @@ else
 fi
 
 # Run the decision tree
-python DecisionTree/build_decision_tree.py
+python ModelTraining/build_decision_tree.py
 
 # Check if the previous command was successful
 if [ $? -eq 0 ]; then
@@ -52,7 +52,7 @@ else
 fi
 
 # Evaluate the decision tree
-python DecisionTree/evaluate_decision_tree.py
+python ModelTraining/evaluate_decision_tree.py
 
 # Check if the previous command was successful
 if [ $? -eq 0 ]; then

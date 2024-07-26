@@ -1,12 +1,12 @@
 # First run all cells in "survival_analysis.ipynb" to generate the survival analysis results
-# Then run "DecisionTree/build_decision_tree.py" to generate the decision tree
-# Then run "DecisionTree/evaluate_decision_tree.py" to evaluate the decision tree
+# Then run "ModelTraining/build_decision_tree.py" to generate the decision tree
+# Then run "ModelTraining/evaluate_decision_tree.py" to evaluate the decision tree
 # Finally run "compare_own_prediction_to_reference.py" to generate the evaluation results
 
 #!/bin/bash
 
 # Evaluate the decision tree
-python DecisionTree/evaluate_decision_tree.py
+python ModelTraining/evaluate_decision_tree.py
 
 # Check if the previous command was successful
 if [ $? -eq 0 ]; then
