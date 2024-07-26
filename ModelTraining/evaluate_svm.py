@@ -3,8 +3,8 @@ import csv
 import os
 from shared import *
 
-def evaluate_test_csv_for_svm():
-    loaded_svm = joblib.load("Models/titanic_svm_model.joblib")
+def evaluate_test_csv_for_svm(model_name):
+    loaded_svm = joblib.load(f"Models/{model_name}.joblib")
 
     with open("Data/test.csv", "r") as f:
         reader = csv.reader(f)
@@ -24,23 +24,35 @@ def evaluate_test_csv_for_svm():
     if not os.path.exists("Predictions"):
         os.mkdir("Predictions")
 
-    with open("Predictions/svm.csv", "w") as f:
+    model_name = model_name.replace("titanic_", "")
+    model_name = model_name.replace("_model", "")
+
+    with open(f"Predictions/{model_name}.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(["PassengerId", "Survived"])
         writer.writerows(zip(passenger_ids, results))
 
-    print("Predictions have been saved to Predictions/svm.csv")
+    print(f"Predictions have been saved to Predictions/{model_name}.csv")
 
-def evaluate_passenger_request_svm(request):
+def evaluate_passenger_request_svm(request, model_name):
     feature = get_adapted_features_from_request(request)
-    loaded_svm = joblib.load("Models/titanic_svm_model.joblib")
+    loaded_svm = joblib.load(f"Models/{model_name}.joblib")
     result = loaded_svm.predict([feature])
 
     return result[0]
 
 if __name__ == "__main__":
     print("-" * 50)
-    
-    evaluate_test_csv_for_svm()
+
+    models = [
+        "titanic_svm_model",
+        "titanic_svm_linear_model",
+        "titanic_svm_poly_model",
+        "titanic_svm_rbf_model",
+        "titanic_svm_sigmoid_model"
+    ]
+
+    for model in models:
+        evaluate_test_csv_for_svm(model)
 
     print("-" * 50)
