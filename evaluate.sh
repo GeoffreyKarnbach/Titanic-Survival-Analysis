@@ -38,7 +38,4 @@ else
     exit 1
 fi
 
-# Delete the intermediate files
-rm executed_survival_analysis.ipynb
-
 echo "All tasks completed successfully."
