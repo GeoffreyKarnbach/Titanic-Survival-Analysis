@@ -1,1 +1,47 @@
-<p>k-nearest-neighbors works!</p>
+<div class="container">
+  <h1 class="mt-3 text-primary"><u>K-Nearest Neighbors (KNN)</u></h1>
+  <br>
+
+  <p class="mb-4">
+    K-Nearest Neighbors (KNN) is a simple yet effective machine learning algorithm used for both classification and regression tasks. The core idea behind KNN is to predict the class or value of a data point based on the classes or values of its nearest neighbors in the feature space.
+  </p>
+  <p class="mb-4">
+    In KNN, the prediction for a new data point is determined by looking at the 'k' nearest points in the training dataset. The algorithm then assigns the most common class among these nearest neighbors (for classification) or the average of their values (for regression) to the new data point.
+  </p>
+
+  <br>
+
+  <h2 class="mb-4"><u>How KNN Works</u></h2>
+
+  <p class="mb-4">
+    The KNN algorithm involves the following steps:
+  </p>
+  <ul>
+    <li><strong>Distance Calculation:</strong> Calculate the distance between the new data point and all points in the training dataset using a distance metric, typically Euclidean distance.</li>
+    <li><strong>Finding Neighbors:</strong> Identify the 'k' closest points to the new data point based on the calculated distances.</li>
+    <li><strong>Prediction:</strong> For classification, assign the most frequent class among the 'k' nearest neighbors. For regression, compute the average of the values of the 'k' nearest neighbors.</li>
+  </ul>
+  <p class="mb-4">
+    KNN is known for its simplicity and ease of implementation. However, its performance can be sensitive to the choice of 'k' and the distance metric. It can also be computationally expensive with large datasets, as it requires distance calculations for every prediction.
+  </p>
+
+  <br>
+
+  <h2 class="mb-4"><u>Performance on Titanic Dataset</u></h2>
+
+  <p class="mb-4">
+    The K-Nearest Neighbors model for the Titanic dataset was trained and evaluated with the hyperparameter <strong>n_neighbors set to 20</strong>. This tuning resulted in an accuracy of <strong>75.60%</strong>, a significant improvement from the initial accuracy. By optimizing the number of neighbors, the model was able to enhance its performance and achieve accuracy comparable to the Gradient Boosting model.
+  </p>
+  <p class="mb-4">
+    Despite this improvement, KNN's performance is on par with Gradient Boosting but slightly better than Random Forest, which achieved an accuracy of <strong>72.73%</strong>. While KNN's accuracy is competitive, the model's performance is sensitive to the choice of 'k' and can be computationally intensive for larger datasets.
+  </p>
+
+  <div class="d-flex flex-column align-items-center">
+    <button type="button" class="btn btn-primary btn-md mb-3"
+      [routerLink]="['/prediction']"
+      [queryParams]="{ model: 'knn' }">
+      Try k-Nearest Neighbors (KNN)
+    </button>
+  </div>
+
+</div>

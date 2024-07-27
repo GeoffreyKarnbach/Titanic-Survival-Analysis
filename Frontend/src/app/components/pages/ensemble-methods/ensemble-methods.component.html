@@ -1,1 +1,66 @@
-<p>ensemble-methods works!</p>
+<div class="container">
+  <h1 class="mt-3 text-primary"><u>Ensemble Methods</u></h1>
+  <br>
+
+  <p class="mb-4">
+    Ensemble methods are advanced machine learning techniques that combine multiple models to improve overall performance. By aggregating the predictions from several base models, these methods aim to enhance accuracy, robustness, and generalizability.
+  </p>
+  <p class="mb-4">
+    Two popular ensemble methods are Random Forest and Gradient Boosting. Both techniques leverage multiple decision trees but in different ways to create a stronger predictive model.
+  </p>
+
+  <br>
+
+  <h2 class="mb-4"><u>Random Forest</u></h2>
+
+  <p class="mb-4">
+    Random Forest is an ensemble learning method that builds multiple decision trees during training. Each tree is constructed using a different subset of the training data and a random subset of features. The final prediction is made by aggregating the results of all the trees: for classification, this means taking the mode (most common class) of all the trees' predictions, and for regression, it means taking the mean of the predictions.
+  </p>
+  <p class="mb-4">
+    This approach has several advantages, including:
+  </p>
+  <ul>
+    <li><strong>Robustness to Overfitting:</strong> By averaging the predictions of multiple trees, Random Forest reduces the risk of overfitting compared to a single decision tree.</li>
+    <li><strong>Feature Importance:</strong> It provides insights into the importance of different features in making predictions, which can be useful for feature selection.</li>
+    <li><strong>Handling of Missing Data:</strong> Random Forest can handle missing values and maintain accuracy even when some features are missing.</li>
+  </ul>
+  <p class="mb-4">
+    The Random Forest model for the Titanic dataset achieved an accuracy of <strong>72.73%</strong>. This result reflects the model's effectiveness in classifying the Titanic survival data by using multiple decision trees.
+  </p>
+
+  <div class="d-flex flex-column align-items-center">
+    <button type="button" class="btn btn-primary btn-md mb-3"
+      [routerLink]="['/prediction']"
+      [queryParams]="{ model: 'random_forest' }">
+      Try Random Forest
+    </button>
+  </div>
+
+  <br>
+
+  <h2 class="mb-4"><u>Gradient Boosting</u></h2>
+
+  <p class="mb-4">
+    Gradient Boosting is an ensemble technique that builds models sequentially. Unlike Random Forest, which creates multiple trees independently, Gradient Boosting constructs each new tree to correct the errors made by the previous trees. This process involves fitting new models to the residual errors of the existing models, gradually improving the predictive performance.
+  </p>
+  <p class="mb-4">
+    Key characteristics of Gradient Boosting include:
+  </p>
+  <ul>
+    <li><strong>Sequential Model Building:</strong> Each new model focuses on the errors of the previous models, which helps in correcting mistakes and improving accuracy.</li>
+    <li><strong>Flexibility:</strong> Gradient Boosting can work with different types of loss functions and base learners, making it adaptable to various problems.</li>
+    <li><strong>Overfitting Control:</strong> Techniques such as regularization and early stopping are used to prevent overfitting and enhance the model's generalizability.</li>
+  </ul>
+  <p class="mb-4">
+    The Gradient Boosting model for the Titanic dataset achieved an accuracy of <strong>75.60%</strong>. This higher accuracy demonstrates the model's ability to improve predictive performance by correcting previous errors and fine-tuning its predictions.
+  </p>
+
+  <div class="d-flex flex-column align-items-center">
+    <button type="button" class="btn btn-primary btn-md mb-3"
+      [routerLink]="['/prediction']"
+      [queryParams]="{ model: 'gradient_boosting' }">
+      Try Gradient Boosting
+    </button>
+  </div>
+
+</div>

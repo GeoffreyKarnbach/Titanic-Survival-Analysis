@@ -1,12 +1,30 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PredictionRequestDto } from '../../../dtos/prediction-request-dto'
+import { HelperService } from '../../../services';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-passenger-form',
   templateUrl: './passenger-form.component.html',
   styleUrl: './passenger-form.component.scss'
 })
-export class PassengerFormComponent {
+export class PassengerFormComponent implements OnInit {
+
+  constructor(
+    private helperService: HelperService
+  ) {}
+
+  ngOnInit(): void {
+    this.helperService.getModels().subscribe(
+      (response) => {
+        this.modelVersions = response["models"];
+        this.modelVersions.push("*");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   @Input() requestDto: PredictionRequestDto = {
     pclass: 1,
@@ -24,10 +42,10 @@ export class PassengerFormComponent {
 
   @Output() submitRequest = new EventEmitter<PredictionRequestDto>();
 
-  decisionTreeVersions: string[] = ['decision_tree_v1', 'decision_tree_v2', 'decision_tree_v3', 'decision_tree_v4', 'decision_tree_v5', 'decision_tree_v6', 'decision_tree_v7', '*'];
+  modelVersions: string[] = ['*'];
 
   onSubmit(event: Event) {
     event.preventDefault();
-    this.submitRequest.emit(this.requestDto); // Emit the data you want to send
+    this.submitRequest.emit(this.requestDto);
   }
 }

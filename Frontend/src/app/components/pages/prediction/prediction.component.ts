@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PredictionRequestDto } from '../../../dtos';
-import { SurvivalPredictionService } from '../../../services';
+import { HelperService, SurvivalPredictionService } from '../../../services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-prediction',
   templateUrl: './prediction.component.html',
   styleUrl: './prediction.component.scss'
 })
-export class PredictionComponent {
+export class PredictionComponent implements OnInit {
   loading: boolean = false;
   survivalPredictionType : string | null = null;
   survivalPrediction: boolean | null | { [key: string]: number } = null;
@@ -25,7 +26,33 @@ export class PredictionComponent {
     embarked: "S",
     model: "*"
   }
-  constructor(private survivalPredictionService: SurvivalPredictionService){}
+  constructor(
+    private survivalPredictionService: SurvivalPredictionService,
+    private route: ActivatedRoute,
+    private helperService: HelperService
+  ){}
+
+  modelVersions: string[] = ['*'];
+
+
+  ngOnInit(): void {
+
+    this.helperService.getModels().subscribe(
+      (response) => {
+        this.modelVersions = response["models"];
+        this.modelVersions.push("*");
+
+        this.route.queryParams.subscribe(params => {
+          this.requestDto.model = this.modelVersions.includes(params['model']) ? params['model'] : '*';
+        });
+
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+  }
 
   onSubmit(_: Event): void {
 
@@ -55,4 +82,7 @@ export class PredictionComponent {
   getEntries(map: boolean | { [key: string]: number }): { key: string, value: number }[] {
     return Object.entries(map).map(([key, value]) => ({ key, value }));
   }
+
+
+
 }

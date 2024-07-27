@@ -226,17 +226,17 @@
 
     <div class="mb-2">
       <div class="row">
-        <label for="modelVersion" class="col-form-label text-start text-muted col-md-2 col-lg-4">Model version:
+        <label for="modelVersion" class="col-form-label text-start text-muted col-md-2 col-lg-4">Model:
           <i class="bi bi-question-circle"
-            ngbTooltip="Decision tree model version (if * is selected, all models will be used and displayed in a table)"
+            ngbTooltip="Machine learning model version (if * is selected, all models will be used and displayed in a table)"
             placement="top"
             aria-label="Tooltip on top">
           </i>
         </label>
         <div class="col-md-8">
           <select class="form-select" id="modelVersion" name="modelVersion" [(ngModel)]="requestDto.model" required>
-            <option *ngFor="let version of decisionTreeVersions" [value]="version">
-              {{ version.split('_').slice(-1)[0] }}
+            <option *ngFor="let version of modelVersions" [value]="version">
+              {{ version}}
             </option>
           </select>
         </div>

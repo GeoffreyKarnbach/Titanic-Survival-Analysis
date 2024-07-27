@@ -15,4 +15,8 @@ export class HelperService {
   getBenchmark() : Observable<{ [key: string]: number }> {
     return this.httpClient.get<{ [key: string]: number }>(`${this.helperBaseUri}/benchmark`);
   }
+
+  getModels() : Observable<any> {
+    return this.httpClient.get<any>(`${this.helperBaseUri}/models`);
+  }
 }

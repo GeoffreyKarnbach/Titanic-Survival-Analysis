@@ -3,13 +3,30 @@
   <br>
 
   <p class="mb-4">
+    Decision Trees are a type of supervised learning algorithm used for both classification and regression tasks. They work by splitting the data into subsets based on the value of input features. This process is repeated recursively, creating a tree-like model of decisions and their possible consequences.
+  </p>
+  <p class="mb-4">
+    Each node in the tree represents a feature, each branch represents a decision rule, and each leaf node represents an outcome (label). The goal is to create a model that predicts the target variable by learning simple decision rules inferred from the data features.
+  </p>
+  <p class="mb-4">
+    Key advantages of decision trees include their simplicity, interpretability, and ability to handle both numerical and categorical data. However, they can be prone to overfitting, especially with noisy data.
+  </p>
+
+  <p class="mb-4">
+    The decision tree models presented here were implemented using the <strong>scikit-learn</strong> library in Python. Scikit-learn provides a robust and easy-to-use implementation of decision trees and other machine learning algorithms, making it a popular choice for data scientists and researchers.
+  </p>
+  <p class="mb-4">
+    In scikit-learn, the <code>DecisionTreeClassifier</code> class is used for creating decision tree models. We only used the <code>random_state</code> hyperparameter,to ensure reproducibility of the results.
+  </p>
+
+  <p class="mb-4">
     With the prepared dataset, several decision tree models were developed and evaluated. Each iteration refined the approach, resulting in the following improvements:
   </p>
   <ul>
-    <li><strong>Decision Tree Version 1:</strong> Achieved an initial accuracy of 61%.</li>
-    <li><strong>Decision Tree Version 2:</strong> Improved accuracy to 70% by categorizing continuous variables.</li>
-    <li><strong>Decision Tree Versions 3 to 6:</strong> Implemented advanced imputation techniques, maintaining accuracy around 70%.</li>
-    <li><strong>Decision Tree Version 7:</strong> Introduced feature engineering, resulting in a final accuracy of 74%.</li>
+    <li><strong>Decision Tree Version 1:</strong> Achieved an initial accuracy of 60.53%.</li>
+    <li><strong>Decision Tree Version 2:</strong> Improved accuracy to 70.33% by categorizing continuous variables.</li>
+    <li><strong>Decision Tree Versions 3 to 6:</strong> Implemented advanced imputation techniques, maintaining accuracy around 70.33%.</li>
+    <li><strong>Decision Tree Version 7:</strong> Introduced feature engineering, resulting in a final accuracy of 72.25%.</li>
   </ul>
   <p class="mb-4">
     This structured approach to data processing and feature engineering significantly enhanced the predictive power of the decision tree models, offering valuable insights into the factors influencing Titanic survival rates.
@@ -36,7 +53,16 @@
             <li>Fare</li>
             <li>Embarkation port</li>
           </ul>
-          <p>Model performance was initially evaluated, with an accuracy of about 61%. This version served as a foundation for further enhancements.</p>
+          <p>Model performance was initially evaluated, with an accuracy of about 60.53%. This version served as a foundation for further enhancements.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'decision_tree_v1' }">
+              Try Decision Tree Model v1
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -53,7 +79,16 @@
             <li>Properly categorizing attributes in our training set (e.g., sex and embarked as integers).</li>
             <li>Dividing fare and age into different categories (e.g., fare < 50, 50 - 100, 100 - 200, > 200).</li>
           </ul>
-          <p>This version aimed to refine the model's accuracy by addressing previous shortcomings. By splitting the age and fare into distinct categories, we observed an increase to 70% accuracy (+9%).</p>
+          <p>This version aimed to refine the model's accuracy by addressing previous shortcomings. By splitting the age and fare into distinct categories, we observed an increase to 70.33% accuracy (+9.8%).</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'decision_tree_v2' }">
+              Try Decision Tree Model v2
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -69,7 +104,16 @@
           <ul>
             <li><strong>Mode Imputation:</strong> Missing values are replaced with the most frequently occurring value (mode) in the column.</li>
           </ul>
-          <p>Despite this method, the accuracy achieved was around 66%, which was slightly lower than version 2 but similar to the subsequent versions.</p>
+          <p>Despite this method, the accuracy achieved was around 66.99%, which was slightly lower than version 2 but similar to the subsequent versions.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'decision_tree_v3' }">
+              Try Decision Tree Model v3
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -85,7 +129,16 @@
           <ul>
             <li><strong>Median Imputation:</strong> Missing values are replaced with the median value of the column, which is less sensitive to outliers compared to the mode.</li>
           </ul>
-          <p>Accuracy for this version was around 67%, indicating marginal improvement over version 3 but still not surpassing version 2.</p>
+          <p>Accuracy for this version was around 67.46%, indicating marginal improvement over version 3 but still not surpassing version 2.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'decision_tree_v4' }">
+              Try Decision Tree Model v4
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -101,7 +154,16 @@
           <ul>
             <li><strong>KNN (K-Nearest Neighbors) Imputation:</strong> Missing values are estimated based on the values of the nearest neighbors in the feature space.</li>
           </ul>
-          <p>This method achieved an accuracy of 70%, matching the results from version 2.</p>
+          <p>This method achieved an accuracy of 70.33%, matching the results from version 2.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'decision_tree_v5' }">
+              Try Decision Tree Model v5
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -117,7 +179,16 @@
           <ul>
             <li><strong>MICE (Multivariate Imputation by Chained Equations):</strong> This method performs multiple imputations based on a series of regressions on other features to estimate missing values.</li>
           </ul>
-          <p>The accuracy achieved with MICE was consistent at 70%, similar to version 5 and version 2.</p>
+          <p>The accuracy achieved with MICE was consistent at 70.33%, similar to version 5 and version 2.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'decision_tree_v6' }">
+              Try Decision Tree Model v6
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -134,7 +205,16 @@
             <li>isAlone: Indicates whether the passenger is traveling alone.</li>
             <li>title: A title extracted from the passenger's name.</li>
           </ul>
-          <p>These new features contributed to a noticeable increase in accuracy, reaching approximately 74% accuracy.</p>
+          <p>These new features contributed to a noticeable increase in accuracy, reaching approximately 72.25% accuracy.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'decision_tree_v7' }">
+              Try Decision Tree Model v7
+            </button>
+          </div>
+
         </div>
       </div>
     </div>

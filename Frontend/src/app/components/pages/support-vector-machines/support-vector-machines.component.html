@@ -1,1 +1,169 @@
-<p>support-vector-machines works!</p>
+<div class="container">
+  <h1 class="mt-3 text-primary"><u>Support Vector Machines (SVM)</u></h1>
+  <br>
+
+  <p class="mb-4">
+    Support Vector Machines (SVM) are supervised learning models used for classification and regression analysis. SVMs are effective in high-dimensional spaces and are versatile due to the use of different kernel functions.
+  </p>
+  <p class="mb-4">
+    An SVM constructs a hyperplane or set of hyperplanes in a high-dimensional space, which can be used for classification, regression, or other tasks. The goal is to find a hyperplane that best separates the classes in the training dataset.
+  </p>
+  <p class="mb-4">
+    Several SVM models were developed and evaluated using the Titanic dataset with the following features: Pclass, Sex, Age, Fare, Embarked, Relatives, IsAlone, and Title. Each model used a different kernel function to map the input features into higher-dimensional spaces, resulting in the following performances:
+  </p>
+  <ul>
+    <li><strong>SVM with Linear Kernel:</strong> Utilizes a linear hyperplane for classification.</li>
+    <li><strong>SVM with Polynomial Kernel:</strong> Maps features into a higher-dimensional space using polynomial functions.</li>
+    <li><strong>SVM with RBF Kernel:</strong> Uses a Radial Basis Function (RBF) to create a more flexible decision boundary.</li>
+    <li><strong>SVM with Sigmoid Kernel:</strong> Employs a sigmoid function to map the features, similar to a neural network.</li>
+  </ul>
+  <p class="mb-4">
+    This structured approach to model building allowed for a comparison of different SVM configurations, highlighting the strengths and weaknesses of each kernel function.
+  </p>
+
+  <br>
+
+  <h2 class="mb-4"><u>SVM Models Overview</u></h2>
+
+  <div ngbAccordion #acc="ngbAccordion" class="accordion">
+    <!-- SVM Default -->
+    <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton>SVM Default Model</button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <p>The default SVM model was built using the basic SVC class from scikit-learn without specifying any kernel. The chosen attributes were:</p>
+          <ul>
+            <li>Pclass</li>
+            <li>Sex</li>
+            <li>Age</li>
+            <li>Fare</li>
+            <li>Embarked</li>
+            <li>Relatives</li>
+            <li>IsAlone</li>
+            <li>Title</li>
+          </ul>
+          <p>Model performance was evaluated using the entire dataset, serving as a baseline for further improvements with kernel-specific models. The accuracy achieved was approximately 77.03%.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'svm' }">
+              Try the SVM Default Model
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SVM Linear -->
+    <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton>SVM Linear Kernel</button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <p>The SVM model with a linear kernel was built to classify the data using a linear decision boundary. The hyperparameters used were:</p>
+          <ul>
+            <li><strong>Kernel: linear</strong> - This specifies that the linear kernel should be used.</li>
+            <li><strong>C: 1</strong> - The regularization parameter, which controls the trade-off between achieving a low training error and a low testing error. A lower C value makes the decision surface smoother, while a higher C aims to classify all training examples correctly.</li>
+          </ul>
+          <p>This model provided a straightforward approach to classification, leveraging the linear relationships in the data. The accuracy achieved was approximately 75.60%.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'svm_linear' }">
+              Try the SVM Linear Kernel
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SVM Polynomial -->
+    <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton>SVM Polynomial Kernel</button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <p>The SVM model with a polynomial kernel transformed the features into higher-dimensional space using polynomial functions. The hyperparameters used were:</p>
+          <ul>
+            <li><strong>Kernel: poly</strong> - This specifies that the polynomial kernel should be used.</li>
+            <li><strong>Degree: 3</strong> - The degree of the polynomial function, which determines the flexibility of the decision boundary.</li>
+            <li><strong>coef0: 0</strong> - This is a free parameter that adjusts the influence of higher-order terms in the polynomial.</li>
+          </ul>
+          <p>This approach allowed for capturing more complex relationships in the data, providing more flexibility in the decision boundary. The accuracy achieved was approximately 74.88%.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'svm_poly' }">
+              Try the SVM Polynomial Kernel
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SVM RBF -->
+    <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton>SVM RBF Kernel</button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <p>The SVM model with a Radial Basis Function (RBF) kernel created a flexible decision boundary by mapping the features into an infinite-dimensional space. The hyperparameters used were:</p>
+          <ul>
+            <li><strong>Kernel: rbf</strong> - This specifies that the RBF kernel should be used.</li>
+            <li><strong>C: 0.5</strong> - The regularization parameter, which controls the trade-off between achieving a low training error and a low testing error. A lower C value makes the decision surface smoother.</li>
+            <li><strong>Gamma: 0.3</strong> - The gamma parameter defines how far the influence of a single training example reaches. A low gamma value means 'far' and a high gamma value means 'close'. Gamma is inversely proportional to the standard deviation of the RBF kernel.</li>
+          </ul>
+          <p>This kernel is effective in situations where the relationship between features is not linear, allowing for more complex decision boundaries. The accuracy achieved was approximately 79.90%.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'svm_rbf' }">
+              Try the SVM RBF Kernel
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SVM Sigmoid -->
+    <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton>SVM Sigmoid Kernel</button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <p>The SVM model with a sigmoid kernel used a sigmoid function to map the features, akin to the activation function in neural networks. The hyperparameters used were:</p>
+          <ul>
+            <li><strong>Kernel: sigmoid</strong> - This specifies that the sigmoid kernel should be used.</li>
+            <li><strong>Gamma: scale</strong> - The gamma parameter defines how far the influence of a single training example reaches. 'Scale' is a value that depends on the number of features, equivalent to 1 / (number of features * X.var()) as a default.</li>
+          </ul>
+          <p>This model captured non-linear relationships in the data, providing a decision boundary similar to neural network models. The accuracy achieved was approximately 64.35%.</p>
+
+          <div class="d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-md mb-3"
+              [routerLink]="['/prediction']"
+              [queryParams]="{ model: 'svm_sigmoid' }">
+              Try the SVM Sigmoid Kernel
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+</div>

@@ -1,1 +1,47 @@
-<p>logistic-regression works!</p>
+<div class="container">
+  <h1 class="mt-3 text-primary"><u>Logistic Regression</u></h1>
+  <br>
+
+  <p class="mb-4">
+    Logistic Regression is a widely used statistical method for binary classification problems. It models the probability of a binary outcome based on one or more predictor variables. Despite its name, Logistic Regression is a classification algorithm, not a regression algorithm.
+  </p>
+  <p class="mb-4">
+    The core idea of Logistic Regression is to use the logistic function (or sigmoid function) to model the probability of the positive class. This function outputs values between 0 and 1, which can be interpreted as probabilities. The model then classifies data points based on a threshold value (typically 0.5).
+  </p>
+
+  <br>
+
+  <h2 class="mb-4"><u>How Logistic Regression Works</u></h2>
+
+  <p class="mb-4">
+    Logistic Regression follows these steps:
+  </p>
+  <ul>
+    <li><strong>Modeling Probabilities:</strong> The logistic function is used to transform the linear combination of input features into a probability value between 0 and 1.</li>
+    <li><strong>Thresholding:</strong> The predicted probability is compared to a threshold to classify the outcome. By default, this threshold is 0.5, but it can be adjusted based on specific needs.</li>
+    <li><strong>Training:</strong> The model is trained by finding the parameters (coefficients) that maximize the likelihood of the observed data. This is typically done using optimization algorithms like Gradient Descent.</li>
+  </ul>
+  <p class="mb-4">
+    Logistic Regression is valued for its simplicity and interpretability. It provides insights into how features impact the probability of the outcome and is computationally efficient, making it suitable for large datasets.
+  </p>
+
+  <br>
+
+  <h2 class="mb-4"><u>Performance on Titanic Dataset</u></h2>
+
+  <p class="mb-4">
+    The Logistic Regression model for the Titanic dataset was trained and evaluated, achieving an accuracy of <strong>75.84%</strong>. This performance reflects the model's ability to effectively classify the Titanic survival data, demonstrating its robustness in handling binary classification tasks.
+  </p>
+  <p class="mb-4">
+    Logistic Regression performed slightly better than K-Nearest Neighbors and Random Forest models, which achieved accuracies of <strong>75.60%</strong> and <strong>72.73%</strong>, respectively. While not the top performer, Logistic Regression offers a balance between interpretability and predictive performance.
+  </p>
+
+  <div class="d-flex flex-column align-items-center">
+    <button type="button" class="btn btn-primary btn-md mb-3"
+      [routerLink]="['/prediction']"
+      [queryParams]="{ model: 'log_reg' }">
+      Try Logistic Regression
+    </button>
+  </div>
+
+</div>
