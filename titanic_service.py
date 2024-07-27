@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_file
-#from flask_cors import CORS
+from flask_cors import CORS
 import joblib
 import sys
 import os
@@ -30,24 +30,7 @@ class PredictionRequest:
         self.model = model
 
 app = Flask(__name__)
-#CORS(app)
-
-@app.before_request
-def before_request():
-    if request.method == 'OPTIONS':
-        # Preflight request
-        response = app.make_default_options_response()
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-        return response
-
-@app.after_request
-def after_request(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    return response
+CORS(app)
 
 ALLOWED_MODELS = [
     'decision_tree_v1',
@@ -125,7 +108,7 @@ def prediction():
     elif prediction_request.model == '*':
         response = {"Survived":predict_all_models(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == 'gradient_boosting':
-        response = {"Survived":evaluate_passenger_request_random_forest(prediction_request), "model": prediction_request.model}
+        response = {"Survived":evaluate_passenger_request_gradient_boosting(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == 'knn':
         response = {"Survived":evaluate_passenger_request_knn(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == 'log_reg':
@@ -149,7 +132,7 @@ def predict_all_models(request_data):
 
     temp["decision_tree_v7"] = evaluate_passenger_request_v7(request_data)
 
-    temp["gradient_boosting"] = evaluate_passenger_request_random_forest(request_data)
+    temp["gradient_boosting"] = evaluate_passenger_request_gradient_boosting(request_data)
     temp["knn"] = evaluate_passenger_request_knn(request_data)
     temp["log_reg"] = evaluate_passenger_request_log_reg(request_data)
     temp["random_forest"] = evaluate_passenger_request_random_forest(request_data)
