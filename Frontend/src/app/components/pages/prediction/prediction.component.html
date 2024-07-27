@@ -44,7 +44,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let entry of getEntries(survivalPrediction)">
-                <td>{{ entry.key }}</td>
+                <td>
+                  <img *ngIf="entry.key === 'svm_rbf'" src="crown.png" style="width: 20px; height: 20px; margin-right: 5px;">
+                  {{ entry.key }}
+                </td>
                 <td>{{ entry.value == 1 ? "survived" : "not survived" }}</td>
               </tr>
             </tbody>

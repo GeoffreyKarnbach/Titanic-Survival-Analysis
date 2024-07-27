@@ -1,5 +1,7 @@
 # <u>Titanic Survival Prediction</u>
 
+Check it out live: https://titanic-survival-analysis.vercel.app/
+
 In this project, an extensive analysis of the Titanic dataset from Kaggle was conducted to develop and fine-tune various machine learning models aimed at predicting passenger survival outcomes. The following outlines the data processing steps and techniques employed to enhance model accuracy and reliability.
 
 ## <u>Index</u>

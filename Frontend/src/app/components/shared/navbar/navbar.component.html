@@ -4,45 +4,51 @@
       <img src="logo.png" style="height: 50px; width: auto;" />
     </a>
 
-    <ul class="navbar-nav ms-2 mr-5 w-100">
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/decision-tree" (click)="null">
-          Decision Tree
-        </a>
-      </li>
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/support-vector-machines" (click)="null">
-          Support vector machines
-        </a>
-      </li>
+      <ul class="navbar-nav ms-2 mr-5 w-100">
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/ensemble-methods" (click)="null">
-          Ensemble methods
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/decision-tree" (click)="null">
+            Decision Tree
+          </a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/k-nearest-neighbors" (click)="null">
-          K-Nearest Neighbors
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/support-vector-machines" (click)="null">
+            Support vector machines
+          </a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/logistic-regression" (click)="null">
-          Logistic regression
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/ensemble-methods" (click)="null">
+            Ensemble methods
+          </a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/prediction" (click)="null">
-          <strong>Try it out!</strong>
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/k-nearest-neighbors" (click)="null">
+            K-Nearest Neighbors
+          </a>
+        </li>
 
-    </ul>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/logistic-regression" (click)="null">
+            Logistic regression
+          </a>
+        </li>
 
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/prediction" (click)="null">
+            <strong>Try it out!</strong>
+          </a>
+        </li>
+
+      </ul>
+    </div>
   </div>
 </nav>
