@@ -10,3 +10,4 @@ jupyter
 nbconvert
 graphviz
 pydotplus
+gunicorn
