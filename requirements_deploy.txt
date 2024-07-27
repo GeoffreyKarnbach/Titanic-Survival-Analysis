@@ -1,5 +1,4 @@
-Flask==3.0.3
-Flask-CORS==4.0.1
-joblib==1.4.2
-scikit-learn==1.5.1
-gunicorn==22.0.0
+Flask
+Flask-CORS
+joblib==1.1.0
+scikit-learn==1.0.2
