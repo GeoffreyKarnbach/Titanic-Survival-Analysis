@@ -125,7 +125,7 @@ def prediction():
     elif prediction_request.model == '*':
         response = {"Survived":predict_all_models(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == 'gradient_boosting':
-        response = {"Survived":evaluate_passenger_request_gradient_boosting(prediction_request), "model": prediction_request.model}
+        response = {"Survived":evaluate_passenger_request_random_forest(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == 'knn':
         response = {"Survived":evaluate_passenger_request_knn(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == 'log_reg':
@@ -149,7 +149,7 @@ def predict_all_models(request_data):
 
     temp["decision_tree_v7"] = evaluate_passenger_request_v7(request_data)
 
-    temp["gradient_boosting"] = evaluate_passenger_request_gradient_boosting(request_data)
+    temp["gradient_boosting"] = evaluate_passenger_request_random_forest(request_data)
     temp["knn"] = evaluate_passenger_request_knn(request_data)
     temp["log_reg"] = evaluate_passenger_request_log_reg(request_data)
     temp["random_forest"] = evaluate_passenger_request_random_forest(request_data)
