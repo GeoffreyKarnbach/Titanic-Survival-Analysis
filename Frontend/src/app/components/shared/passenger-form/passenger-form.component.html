@@ -236,6 +236,7 @@
         <div class="col-md-8">
           <select class="form-select" id="modelVersion" name="modelVersion" [(ngModel)]="requestDto.model" required>
             <option *ngFor="let version of modelVersions" [value]="version">
+              <span *ngIf="version === 'svm_rbf'">[TOP]</span>
               {{ version}}
             </option>
           </select>

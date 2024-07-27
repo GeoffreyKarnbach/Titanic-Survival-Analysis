@@ -31,7 +31,7 @@ def evaluate_test_csv_for_knn():
 
     print("Predictions have been saved to Predictions/knn.csv")
 
-def evaluate_passenger_request_svm(request):
+def evaluate_passenger_request_knn(request):
     feature = get_adapted_features_from_request(request)
     loaded_knn = joblib.load("Models/titanic_knn_model.joblib")
     result = loaded_knn.predict([feature])

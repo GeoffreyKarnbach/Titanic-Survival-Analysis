@@ -36,7 +36,7 @@ def evaluate_test_csv_for_svm(model_name):
 
 def evaluate_passenger_request_svm(request, model_name):
     feature = get_adapted_features_from_request(request)
-    loaded_svm = joblib.load(f"Models/{model_name}.joblib")
+    loaded_svm = joblib.load(f"Models/titanic_{model_name}_model.joblib")
     result = loaded_svm.predict([feature])
 
     return result[0]

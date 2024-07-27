@@ -8,6 +8,11 @@ import csv
 sys.path.append(os.path.join(os.path.dirname(__file__), 'ModelTraining'))
 
 from ModelTraining.evaluate_decision_tree import evaluate_passenger_request_v1, evaluate_passenger_request_v_n, evaluate_passenger_request_v7
+from ModelTraining.evaluate_svm import evaluate_passenger_request_svm
+from ModelTraining.evaluate_gradient_boosting import evaluate_passenger_request_gradient_boosting
+from ModelTraining.evaluate_knn import evaluate_passenger_request_knn
+from ModelTraining.evaluate_log_reg import evaluate_passenger_request_log_reg
+from ModelTraining.evaluate_random_forest import evaluate_passenger_request_random_forest
 
 class PredictionRequest:
     def __init__(self, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked, model):
@@ -92,29 +97,32 @@ def prediction():
         model=data['model']
     )
 
-    response = {"error": "Model prediction not implemented yet."}
+    response = None
 
     if prediction_request.model == 'decision_tree_v1':
-        response = {"Survived":predict_decision_tree_v1(prediction_request), "model": prediction_request.model}
+        response = {"Survived":evaluate_passenger_request_v1(prediction_request), "model": prediction_request.model}
     elif prediction_request.model[0:15] == 'decision_tree_v' and prediction_request.model[-1] in ['2', '3', '4', '5', '6']:
-        response = {"Survived":predict_decision_tree_v_n(prediction_request, int(prediction_request.model[-1])), "model": prediction_request.model}
+        response = {"Survived":evaluate_passenger_request_v_n(prediction_request, int(prediction_request.model[-1])), "model": prediction_request.model}
     elif prediction_request.model == 'decision_tree_v7':
-        response = {"Survived":predict_decision_tree_v7(prediction_request), "model": prediction_request.model}
+        response = {"Survived":evaluate_passenger_request_v7(prediction_request), "model": prediction_request.model}
     elif prediction_request.model == '*':
-        response = {"Survived":predict_decision_tree_all(prediction_request), "model": prediction_request.model}
+        response = {"Survived":predict_all_models(prediction_request), "model": prediction_request.model}
+    elif prediction_request.model == 'gradient_boosting':
+        response = {"Survived":evaluate_passenger_request_gradient_boosting(prediction_request), "model": prediction_request.model}
+    elif prediction_request.model == 'knn':
+        response = {"Survived":evaluate_passenger_request_knn(prediction_request), "model": prediction_request.model}
+    elif prediction_request.model == 'log_reg':
+        response = {"Survived":evaluate_passenger_request_log_reg(prediction_request), "model": prediction_request.model}
+    elif prediction_request.model == 'random_forest':
+        response = {"Survived":evaluate_passenger_request_random_forest(prediction_request), "model": prediction_request.model}
+    elif prediction_request.model.startswith('svm'):
+        response = {"Survived":evaluate_passenger_request_svm(prediction_request, prediction_request.model), "model": prediction_request.model}
+    else:
+        return jsonify({'error': 'Model prediction not implemented yet.'}), 501
     
     return jsonify(response), 200
 
-def predict_decision_tree_v1(request_data):
-    return evaluate_passenger_request_v1(request_data)
-
-def predict_decision_tree_v_n(request_data, version):
-    return evaluate_passenger_request_v_n(request_data, version)
-
-def predict_decision_tree_v7(request_data):
-    return evaluate_passenger_request_v7(request_data)
-
-def predict_decision_tree_all(request_data):
+def predict_all_models(request_data):
     temp = {}
 
     temp["decision_tree_v1"] = evaluate_passenger_request_v1(request_data)
@@ -123,6 +131,15 @@ def predict_decision_tree_all(request_data):
         temp[f"decision_tree_v{model_version}"] = evaluate_passenger_request_v_n(request_data, model_version)
 
     temp["decision_tree_v7"] = evaluate_passenger_request_v7(request_data)
+
+    temp["gradient_boosting"] = evaluate_passenger_request_gradient_boosting(request_data)
+    temp["knn"] = evaluate_passenger_request_knn(request_data)
+    temp["log_reg"] = evaluate_passenger_request_log_reg(request_data)
+    temp["random_forest"] = evaluate_passenger_request_random_forest(request_data)
+
+    for svm_model in ['svm', 'svm_linear', 'svm_poly', 'svm_rbf', 'svm_sigmoid']:
+        temp[svm_model] = evaluate_passenger_request_svm(request_data, svm_model)
+    
     
     return temp
 

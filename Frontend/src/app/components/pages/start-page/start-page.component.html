@@ -81,20 +81,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let key of benchmarkKeys">
-        <td>{{ key }}</td>
+      <tr *ngFor="let key of benchmarkKeys; let i = index">
+        <td>
+          <img *ngIf="i === 0" src="crown.png" style="width: 20px; height: 20px; margin-right: 5px;">
+          {{ key }}
+        </td>
         <td>{{ formatBenchmarkValue(benchmarkResults[key]) }}</td>
       </tr>
     </tbody>
   </table>
-
-  <!--
-  <div class="d-flex flex-column align-items-center my-5">
-    <button type="button" class="btn btn-primary btn-lg mb-3" [routerLink]="['/prediction']">
-      Try it out yourself!
-    </button>
-  </div>
-  -->
 
   <footer class="mt-5">
     <p class="text-muted">© 2024 Titanic Survival Prediction. All rights reserved.</p>

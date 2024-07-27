@@ -28,6 +28,8 @@
       </div>
     </div>
 
+    <br>
+
     <div *ngIf="survivalPredictionType == 'multiple_prediction'">
       <div *ngIf="survivalPrediction != null" class="mt-3 text-center" style="margin-top: 2em;">
         <h3 class="text-primary">Survival prediction</h3>
@@ -36,13 +38,13 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Decision Tree Model</th>
+                <th>Model</th>
                 <th>Prediction</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let entry of getEntries(survivalPrediction)">
-                <td>{{ entry.key.split('_').slice(-1)[0] }}</td>
+                <td>{{ entry.key }}</td>
                 <td>{{ entry.value == 1 ? "survived" : "not survived" }}</td>
               </tr>
             </tbody>

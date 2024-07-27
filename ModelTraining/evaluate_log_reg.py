@@ -31,7 +31,7 @@ def evaluate_test_csv_for_log_reg():
 
     print("Predictions have been saved to Predictions/log_reg.csv")
 
-def evaluate_passenger_request_svm(request):
+def evaluate_passenger_request_log_reg(request):
     feature = get_adapted_features_from_request(request)
     loaded_log_reg = joblib.load("Models/titanic_log_reg_model.joblib")
     result = loaded_log_reg.predict([feature])
